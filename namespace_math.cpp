@@ -4,11 +4,11 @@
 #include "namespace_math.h"
 
 // Определения переменных из области Math
-Math::Z Math::x0 = 0, Math::y0 = 0;
+Math::Z Math::x0 = 0, Math::y0 = 0, Math::z0 = 0;
 
 // Определение функции из области Math
 Math::R Math::alpha(Math::Z x, Math::Z y) {
-  return atan2( double(y-y0), double(x-x0) );
+  return atan2( double(y-Math::y0), double(x-Math::x0) );
 }
 
 using Math::R; // объявление имени R

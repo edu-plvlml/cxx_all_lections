@@ -9,8 +9,7 @@ Vector3 *pv3_0 = nullptr; // создавать указатели можно
 #include "struct_vector3.h"
 
 // Определение переменных типа Vector3
-Vector3 v3_x = {1,0,0}, v3_y = {0,1,0}, v3_z = {0,0,1};
-Vector3 *pv3 = new Vector3; // теперь можно
+Vector3 v3, *pv3 = new Vector3; // теперь можно
 
 // Определения функций
 void set_x(Vector3& vector_to, int x) { vector_to.x = x; }

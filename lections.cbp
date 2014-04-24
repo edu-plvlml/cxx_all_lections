@@ -35,6 +35,8 @@
 		</Compiler>
 		<Unit filename="class_vector2.cpp" />
 		<Unit filename="class_vector2.h" />
+		<Unit filename="lection1.cpp" />
+		<Unit filename="lections.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="namespace_math.cpp" />
 		<Unit filename="namespace_math.h" />

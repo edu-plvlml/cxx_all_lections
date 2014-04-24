@@ -6,7 +6,7 @@
 struct Vector3;
 
 // Объявление переменных типа Vector3
-extern Vector3 v3_x, v3_y, v3_z, *pv3, *pv3_0;
+extern Vector3 v3, *pv3, *pv3_0;
 
 // Определение типа: структура Vector3
 struct Vector3 {

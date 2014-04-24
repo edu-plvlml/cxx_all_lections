@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1398334600 source:f:\docs\coding\work\ikbfu\cxx\cxx_lections\class_vector2.cpp
+	"class_vector2.h"
+
+1398334600 f:\docs\coding\work\ikbfu\cxx\cxx_lections\class_vector2.h
+	"namespace_math.h"
+
+1398340687 f:\docs\coding\work\ikbfu\cxx\cxx_lections\namespace_math.h
+
+1398347162 source:f:\docs\coding\work\ikbfu\cxx\cxx_lections\namespace_math.cpp
+	<cmath>
+	"namespace_math.h"
+
+1398338734 source:f:\docs\coding\work\ikbfu\cxx\cxx_lections\struct_vector3.cpp
+	"struct_vector3.h"
+
+1398338734 f:\docs\coding\work\ikbfu\cxx\cxx_lections\struct_vector3.h
+
+1398350361 source:f:\docs\coding\work\ikbfu\cxx\cxx_lections\main.cpp
+	"lections.h"
+
+1398350165 f:\docs\coding\work\ikbfu\cxx\cxx_lections\lections.h
+
