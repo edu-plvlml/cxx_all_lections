@@ -28,6 +28,9 @@ class Vector2 { /*
   // Объявления встраиваемых методов класса
   inline double get_rad() const;
   inline double get_alpha() const;
+
+  // Объявление конструктора с параметрами
+  Vector2(int x = 0, int y = 0);
 };
 
 // Определение встраиваемых методов класса

@@ -1,6 +1,8 @@
-# uniMakefile v0.2.2 by Pavel Matcula
-# 0.2.1: fixed module dependencies for fortran
-# 0.2.2: fixed check-syntax for emacs flymake
+# uniMakefile v0.2.4 by Pavel 'M4E5TR0' Matcula
+# 0.2.1: fixed module dependencies for fortran objects
+# 0.2.2: fixed 'check-syntax' target for emacs flymake
+# 0.2.3: fixed bug with makedepf90 used w/o arguments
+# 0.2.4: fixed unnecessary builds on 'clean' target
 
 # To be customized
 NAME := lections
@@ -167,14 +169,20 @@ ifeq ($(TARGET_TYPE),shared)
 	$(LINK.cc) -shared -o $@ $^ $(LDLIBS)
 endif
 
-$(BUILD_DIR)/%.o $(BUILD_DIR)/%.d: $(srcdir)/%.c | $(BUILD_DIR)
-	$(COMPILE.c) -o $(BUILD_DIR)/$*.o -MMD -MP -MF $(BUILD_DIR)/$*.d $< # -MT $(BUILD_DIR)/$*.o
+$(BUILD_DIR)/%.o: $(srcdir)/%.c | $(BUILD_DIR)
+	$(COMPILE.c) -o $@ $<
+$(BUILD_DIR)/%.d: $(srcdir)/%.c | $(BUILD_DIR)
+	-@$(COMPILE.c) -E > /dev/null -MMD -MF $@ $< -MP
 
-$(BUILD_DIR)/%.o $(BUILD_DIR)/%.d: $(srcdir)/%.cc | $(BUILD_DIR)
-	$(COMPILE.cc) -o $(BUILD_DIR)/$*.o -MMD -MP -MF $(BUILD_DIR)/$*.d $< # -MT $(BUILD_DIR)/$*.o
+$(BUILD_DIR)/%.o: $(srcdir)/%.cc | $(BUILD_DIR)
+	$(COMPILE.cc) -o $@ $<
+$(BUILD_DIR)/%.d: $(srcdir)/%.cc | $(BUILD_DIR)
+	-@$(COMPILE.cc) -E > /dev/null -MMD -MF $@ $< -MP
 
-$(BUILD_DIR)/%.o $(BUILD_DIR)/%.d: $(srcdir)/%.cpp | $(BUILD_DIR)
-	$(COMPILE.cpp) -o $(BUILD_DIR)/$*.o -MMD -MP -MF $(BUILD_DIR)/$*.d $< # -MT $(BUILD_DIR)/$*.o
+$(BUILD_DIR)/%.o: $(srcdir)/%.cpp | $(BUILD_DIR)
+	$(COMPILE.cpp) -o $@ $<
+$(BUILD_DIR)/%.d: $(srcdir)/%.cpp | $(BUILD_DIR)
+	-@$(COMPILE.cpp) -E > /dev/null -MMD -MF $@ $< -MP
 
 $(BUILD_DIR)/%.o $(BUILD_DIR)/%.mod: $(srcdir)/%.f | $(BUILD_DIR)
 	$(COMPILE.F) -o $(BUILD_DIR)/$*.o $<
@@ -240,7 +248,7 @@ clean:
 .PHONY: check-syntax
 check-syntax: COMPILE.h := $(COMPILE.cc)
 check-syntax:
-	$(COMPILE$(suffix $(CHK_SOURCES))) -fsyntax-only $(CHK_SOURCES) -Wall
-#	$(foreach CHK_SOURCE, $(CHK_SOURCES), \
-#	  $(COMPILE$(suffix $(CHK_SOURCE))) -fsyntax-only $(CHK_SOURCE) -Wall ; \
-#	)
+#	$(COMPILE$(suffix $(CHK_SOURCES))) -fsyntax-only $(CHK_SOURCES) -Wall
+	$(foreach CHK_SOURCE, $(CHK_SOURCES), \
+	  $(COMPILE$(suffix $(CHK_SOURCE))) -fsyntax-only $(CHK_SOURCE) -Wall ; \
+	)
