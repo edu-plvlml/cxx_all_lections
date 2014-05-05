@@ -19,13 +19,13 @@ Vector2::Vector2(int x /* = 1 */, int y /* = 1 */)
 }
 
 // Определение метода класса Vector2
-int Vector2::get_y(/* const Vector3& vector_from */) const {
-  // const Vector* this = &vector_from;
+int Vector2::get_y(/* const Vector2& vector_from */) const {
+  // const Vector2* this = &vector_from;
   return this->y_;
 }
 
 // Определение метода класса Vector2
-void Vector2::set_y(/* Vector3& vector_to, */ int y) {
-  // Vector* this = &vector_to;
+void Vector2::set_y(/* Vector2& vector_to, */ int y) {
+  // Vector2* this = &vector_to;
   this->y_ = y;
 }
