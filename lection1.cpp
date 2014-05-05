@@ -12,7 +12,7 @@ void lection1() {
   cout << "v3.x == " << v3.x << endl;
 
   set_y(v3, 4);
-  cout << "get_y(v3) == " << get_y(v3) << endl;
+  cout << "get_y(v3) == " << get_y(v3) << endl; // (*)
 
   // Инкапсуляция: внутренняя структура недоступна, ...
   // v2.x_ = 3; // поле скрыто
@@ -22,20 +22,18 @@ void lection1() {
   v2.set_x(3);
   v2.set_y(4);
   cout << "v2.get_x() == " << v2.get_x() << endl;
-  cout << "v2.get_y() == " << v2.get_y() << endl;
+  cout << "v2.get_y() == " << v2.get_y() << endl; // (**)
 
-  cout << "v2.get_rad() == " << v2.get_rad() << endl;
+  cout << "v2.get_rad() == "   << v2.get_rad()   << endl;
   cout << "v2.get_alpha() == " << v2.get_alpha() << endl;
   // Внутренняя структура неизвестна - абстракция.
 
-  Vector3 v3_x = {1,0,0}; // инициализация полей структуры
-  cout << "get_x(v3_x) == " << get_x(v3_x) << endl;
-  cout << "get_x(v3) == " << get_x(v3) << endl;
+  Vector3 v3_y = {0,1,0}; // инициализация полей структуры
+  cout << "get_y(v3_y) == " << get_y(v3_y) << endl;
+  cout << "get_y(v3) == "   << get_y(v3)   << endl; // см. (*)
 
-  // Vector2 v2_x = {1,0}; // ошибка: поля скрыты!
-  Vector2 v2_x(1,0); // инициализация полей класса конструктором
-  cout << "v2_x.get_x() == " << v2_x.get_x() << endl;
-  cout << "v2.get_x() == " << v2.get_x() << endl;
-
-  // Как метод узнает, какой конкретно объект его вызвал?
+  // Vector2 v2_y = {0,1}; // ошибка: поля скрыты!
+  Vector2 v2_y(0,1); // инициализация полей класса конструктором
+  cout << "v2_y.get_y() == " << v2_y.get_y() << endl;
+  cout << "v2.get_y() == "   << v2.get_y()   << endl; // см. (**)
 }
