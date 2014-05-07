@@ -61,5 +61,30 @@ Vector2& add(Vector2& arg1, const Vector2& arg2);
 // увеличенный на значение аргумента b
 Vector2& operator += (Vector2& arg1, const Vector2& arg2);
 
+// ЗАДАНИЕ. Реализовать операторы:
+
+Vector2 operator * (const Vector2& arg1, int            arg2);
+Vector2 operator * (int            arg1, const Vector2& arg2);
+int     operator * (const Vector2& arg1, const Vector2& arg2);
+
+Vector2& operator *= (Vector2& arg1, int arg2);
+
 // Идиома "защита включения"
 #endif // CLASS_VECTOR2_H_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
