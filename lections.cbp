@@ -33,10 +33,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="class_unit.cpp" />
+		<Unit filename="class_unit.h" />
 		<Unit filename="class_vector2.cpp" />
 		<Unit filename="class_vector2.h" />
 		<Unit filename="lection1.cpp" />
 		<Unit filename="lection2.cpp" />
+		<Unit filename="lection3.cpp" />
 		<Unit filename="lections.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="namespace_math.cpp" />
