@@ -49,15 +49,15 @@ inline double Vector2::get_alpha() const { return Math::alpha(x_, y_); }
 // равный векторной сумме двух ее аргументов
 Vector2 sum(const Vector2& arg1, const Vector2& arg2);
 
-// Оператор "a + b", возвращающий новый объект,
+// Оператор "бинарный плюс" (a + b), возвращающий новый объект,
 // равный векторной сумме аргументов a и b
 Vector2 operator + (const Vector2& arg1, const Vector2& arg2);
 
-// Функция, возвращающая сам первый аргумент,
+// Функция, возвращающая первый аргумент,
 // увеличенный на значение второго аргумента
 Vector2& add(Vector2& arg1, const Vector2& arg2);
 
-// Оператор "a += b", возвращающий сам аргумент a,
+// Оператор "сложение с присваиванием" (a += b), возвращающий аргумент a,
 // увеличенный на значение аргумента b
 Vector2& operator += (Vector2& arg1, const Vector2& arg2);
 
@@ -71,20 +71,3 @@ Vector2& operator *= (Vector2& arg1, int arg2);
 
 // Идиома "защита включения"
 #endif // CLASS_VECTOR2_H_
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
