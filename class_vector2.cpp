@@ -82,3 +82,14 @@ Vector2& Vector2::operator+=(/* Vector2& vector_to, */ const Vector2& arg) {
   this->y_ += arg.y_;
   return *this;
 }
+
+// Подключение файла c ОПРЕДЕЛЕНИЕМ классов ввода/вывода
+#include <iostream>
+
+// Оператор "побитовый сдвиг влево" (a << b), перегруженный для вывода
+// на первый аргумент (объект потока вывода) второго аргумента (типа Vector2)
+// и возвращаюший первый аргумент для работы цепочки операторов (a << b << c)
+std::ostream& operator << (std::ostream& out, const Vector2& vector) {
+  out << '(' << vector.get_x() << ", " << vector.get_y() << ')';
+  return out;
+}

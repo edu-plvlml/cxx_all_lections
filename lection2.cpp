@@ -27,4 +27,7 @@ void lection2() {
 
   c.operator+=(a);
   cout << c.get_x() << ' ' << c.get_y() << endl;
+
+  cout << "c = " << c << endl;
+  // ((cout << "c = ") << c) << endl;
 }

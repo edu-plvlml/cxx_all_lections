@@ -61,6 +61,14 @@ Vector2& add(Vector2& arg1, const Vector2& arg2);
 // увеличенный на значение аргумента b
 Vector2& operator += (Vector2& arg1, const Vector2& arg2);
 
+// Подключение файла c ОБЪЯВЛЕНИЕМ классов ввода/вывода
+#include <iosfwd>
+
+// Оператор "побитовый сдвиг влево" (a << b), перегруженный для вывода
+// на первый аргумент (объект потока вывода) второго аргумента (типа Vector2)
+// и возвращаюший первый аргумент для работы цепочки операторов (a << b << c)
+std::ostream& operator << (std::ostream& out, const Vector2& vector);
+
 // ЗАДАНИЕ. Реализовать операторы:
 
 Vector2 operator * (const Vector2& arg1, int            arg2);
