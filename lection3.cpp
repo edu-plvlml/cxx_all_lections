@@ -9,5 +9,9 @@ using namespace std;
 #include "class_unit.h"
 
 void lection3() {
-  
+  Unit u, *pu = new Unit;
+  cout << u.get_number() << endl; // вызов статического метода
+  cout << pu->get_number() << endl; // вызов статического метода
+  cout << Unit::get_number() << endl; // вызов статического метода!
+  // статическим методам не передается ссылка на текущий объект
 }
