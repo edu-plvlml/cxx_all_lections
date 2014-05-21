@@ -16,7 +16,7 @@ extern unsigned int max_index; // индекс последнего объект
 class Unit {
  private:
   unsigned int index_; // индекс текущего объекта
-  
+
  public:
   unsigned int get_index() { return index_; }
 
@@ -32,7 +32,7 @@ class Unit {
   // ~Unit() {
   //   --UnitInfo::number;
   // }
- 
+
  private:
   // Статические поля - общие для всех объектов данного класса
   static unsigned int number; // количество объектов данного класса
@@ -61,19 +61,19 @@ class Unit {
  public:
   Vector2 get_position() { return position_; }
 
-  // Делегирование реализации методов класса методам его полей 
+  // Делегирование реализации методов класса методам его полей
   void set_x(int x) { position_.set_x(x); }
   void set_y(int y) { position_.set_y(y); }
-  // т.о., между классами установлено отношение:
-  // Unit "реализован посредством" Vector2
+  // Композиция и делегирование устанавливают между классами отношение
+  // "реализован посредством": Unit реализован посредством (использует) Vector2
 
  private:
   char* name_;
 
  public:
-  char* get_name() { return name_; }
+  const char* get_name() const { return name_; }
   void set_name(const char* name);
-  
+
   Unit(const char* name = "Unit", int x = 0, int y = 0);
   ~Unit();
 
@@ -83,8 +83,9 @@ class Unit {
   // Конструктор перемещения
   Unit(Unit&& other);
 
+  // Дружественная функция обмена
   friend void swap(Unit& unit1, Unit& unit2) noexcept;
- 
+
   // Оператор копирующего присваивания
   Unit& operator = (const Unit& other);
 
