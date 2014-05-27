@@ -34,16 +34,15 @@ Unit::Unit(const char* name /* = "Unit" */, int x /* = 0 */, int y /* = 0 */):
 {
   strcpy(name_, name);
   std::clog << "Unit #" << index_
-            << " \"" << "" << "\" "
-            << "calls c-tor with name"
-            << " \"" << name_ << "\" " << std::endl;
+            << " calls c-tor with name "
+            << '\"' << name_ << '\"' << std::endl;
   ++number;
 }
 
 Unit::~Unit() {
-  std::clog << "Unit #" << index_
-            << " \"" << (name_ ? name_ : "") << "\" "
-            << "calls d-tor" << std::endl;
+  std::clog << "Unit #" << index_ << ' '
+            << '\"' << (name_ ? name_ : "") << '\"'
+            << " calls d-tor" << std::endl;
   --number;
   delete[] name_; // Идиома RAII:
   // освобождение ресурса совпадает с удалением объекта
@@ -59,10 +58,9 @@ Unit::Unit(const Unit& other):
 {
   strcpy(name_, other.name_); // хорошо: глубокое копирование
   std::clog << "Unit #" << index_
-            << " \"" << "" << "\" "
-            << "calls copy c-tor from "
-            << "unit #" << other.index_
-            << " \"" << other.name_ << "\" " << std::endl;
+            << " calls copy c-tor from "
+            << "unit #" << other.index_ << ' '
+            << '\"' << other.name_ << '\"' << std::endl;
   ++number;
 }
 
@@ -74,35 +72,34 @@ Unit::Unit(Unit&& other): // other привязана к pr-value или x-value
     name_(other.name_) // простое копирование - правильно
 {
   std::clog << "Unit #" << index_
-            << " \"" << "" << "\" "
-            << "calls move c-tor from "
-            << "unit #" << other.index_
-            << " \"" << other.name_ << "\" " << std::endl;
+            << " calls move c-tor from "
+            << "unit #" << other.index_ << ' '
+            << '\"' << other.name_ << '\"' << std::endl;
   ++number;
   other.name_ = nullptr; // оригинал больше не владеет ресурсом
   // т.о., деструктор оригинала не удалит ресурс копии
 }
 
 void swap(Unit& unit1, Unit& unit2) noexcept {
-  std::clog << "Unit #" << unit1.index_
-            << " \"" << unit1.name_ << "\" "
-            << "swaps with "
-            << "unit #" << unit2.index_
-            << " \"" << unit2.name_ << "\" " << std::endl;
+  std::clog << "Unit #" << unit1.index_ << ' '
+            << '\"' << unit1.name_ << '\"'
+            << " swaps with "
+            << "unit #" << unit2.index_ << ' '
+            << '\"' << unit2.name_ << '\"' << std::endl;
   std::swap(unit1.position_, unit2.position_);
   std::swap(unit1.name_, unit2.name_);
 }
 
 // Оператор копирующего присваивания
 Unit& Unit::operator=(const Unit& other) {
-  std::clog << "Unit #" << index_
-            << " \"" << name_ << "\" "
-            << "calls copy assignment from "
-            << "unit #" << other.index_
-            << " \"" << other.name_ << "\" " << std::endl;
+  std::clog << "Unit #" << index_ << ' '
+            << '\"' << name_ << '\"'
+            << " calls copy assignment from "
+            << "unit #" << other.index_ << ' '
+            << '\"' << other.name_ << '\"' << std::endl;
   // Идиома "copy and swap"
   Unit temp(other); // может возникнуть исключение
-  swap(temp, *this); // гарантируется отсутствие исключений
+  swap(*this, temp); // гарантируется отсутствие исключений
   // хорошо: строгая гарантия безопасности исключений
   return *this;
 } // вызывается деструктор temp, удалающий прежние ресурсы this
@@ -110,12 +107,12 @@ Unit& Unit::operator=(const Unit& other) {
 // Оператор перемещающего присваивания
 Unit& Unit::operator=(Unit&& other) { // other привязана к pr-value или x-value,
   // т.е. это объект временный или истекающего времени жизни
-  std::clog << "Unit #" << index_
-            << " \"" << name_ << "\" "
-            << "calls move assignment from "
-            << "unit #" << other.index_
-            << " \"" << other.name_ << "\" " << std::endl;
-  swap(other, *this);
+  std::clog << "Unit #" << index_ << ' '
+            << '\"' << name_ << '\"'
+            << " calls move assignment from "
+            << "unit #" << other.index_ << ' '
+            << '\"' << other.name_ << '\"' << std::endl;
+  swap(*this, other);
   return *this;
 } // скоро вызовется деструктор other, удаляя прежние ресурсы this
 
@@ -123,6 +120,6 @@ Unit& Unit::operator=(Unit&& other) { // other привязана к pr-value и
 // Unit& Unit::operator=(Unit other) { // other передается по значению,
 //   // при этом вызывается копирующий или перемещающий конструктор;
 //   // возможно также исключение копирования компилятором
-//   swap(other, *this);
+//   swap(*this, other);
 //   return *this;
 // } // вызывается деструктор other, удаляющий прежние ресурсы this
