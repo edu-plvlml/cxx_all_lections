@@ -40,6 +40,7 @@
 		<Unit filename="lection1.cpp" />
 		<Unit filename="lection2.cpp" />
 		<Unit filename="lection3.cpp" />
+		<Unit filename="lection4.cpp" />
 		<Unit filename="lections.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="namespace_math.cpp" />

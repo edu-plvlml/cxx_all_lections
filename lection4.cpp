@@ -3,11 +3,36 @@
 #include <iostream>
 using namespace std;
 
-#include "namespace_math.h"
-#include "struct_vector3.h"
-#include "class_vector2.h"
 #include "class_unit.h"
 
 void lection4() {
+  typedef Unit U;
+
+  // Инициализация по умолчанию (default initialization)
+  /* 1 */ U name1;
+  /* 2 */ new U;
+  /* 3 */ // базовый класс или объект-поле, не указанные в списке инициализации
+  
+  // Прямая инициализация (direct initialization)
+  /* 1.2 */ U("Unit", 0, 0);
+  /* 1.2 */ U{"Unit", 0, 0};
+  /* 2.1 */ U name2("Unit", 0, 0);
+  /* 2.2 */ U name3{"Unit", 0, 0};
+  /* 3.1 */ new U("Unit", 0, 0);
+  /* 3.2 */ new U{"Unit", 0, 0};
+  /* 4 */ // базовый класс или объект-поле, указанные в списке инициализации
+          // с непустыми круглыми или фигурными скобками
+  
+  // Инициализация значением (value initialization)
+  /* 1.2 */ U();
+  /* 1.2 */ U{};
+  /* 2.1 */ // U name4(); // это объявление ФУНКЦИИ!
+  /* 2.2 */ U name5{};
+  /* 3.1 */ new U();
+  /* 3.2 */ new U{};
+  /* 4 */ // базовый класс или объект-поле, указанные в списке инициализации
+          // с пустыми круглыми или фигурными скобками
+  
+  // Инициализация копии (copy initialization)
   
 }
