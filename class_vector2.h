@@ -2,6 +2,9 @@
 #ifndef CLASS_VECTOR2_H_
 #define CLASS_VECTOR2_H_
 
+#include <utility>
+#include <string>
+
 #include "namespace_math.h"
 
 // Объявление типа: класс Vector2
@@ -39,6 +42,16 @@ class Vector2 { /*
   // Объявления методов класса
   Vector2& add(const Vector2& arg);
   Vector2& operator += (const Vector2& arg);
+
+  // Оператор без возвращаемого значения с именем-типом (std::string) называется
+  // оператором преобразования (объекта Vector2 в объект std::string)
+  // explicit // допустимы неявные преобразования
+  operator std::string();
+
+  // Конструктор c одним параметром (типа std::pair<int, int>) называется
+  // конструктором преобразования (объекта std::pair<int, int> в объект Vector2)
+  explicit // только для явных преобразований
+  Vector2(const std::pair<int, int>& pair);
 };
 
 // Определение встраиваемых методов класса

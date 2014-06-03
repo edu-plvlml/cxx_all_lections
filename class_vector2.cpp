@@ -93,3 +93,21 @@ std::ostream& operator << (std::ostream& out, const Vector2& vector) {
   out << '(' << vector.get_x() << ", " << vector.get_y() << ')';
   return out;
 }
+
+#include <string>
+#include <sstream>
+
+// Оператор преобразования
+Vector2::operator std::string() {
+  std::ostringstream out;
+  out << '(' << this->get_x() << ", " << this->get_y() << ')';
+  return out.str();
+}
+
+#include <utility>
+
+// Конструктор преобразования
+Vector2::Vector2(const std::pair<int, int>& pair):
+    x_(pair.first),
+    y_(pair.second)
+{}
