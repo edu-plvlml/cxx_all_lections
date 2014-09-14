@@ -123,3 +123,15 @@ Unit& Unit::operator=(Unit&& other) { // other привязана к pr-value и
 //   swap(*this, other);
 //   return *this;
 // } // вызывается деструктор other, удаляющий прежние ресурсы this
+
+Vector2 swap(Vector2& v1, Vector2& v2) {
+  Vector2 temp(v1);
+  v1 = v2;
+  v2 = temp;
+}
+
+Vector2 swap(Vector2& v1, Vector2& v2) {
+  Vector2 temp(std::move(v1));
+  v1 = std::move(v2);
+  v2 = std::move(temp);
+}
