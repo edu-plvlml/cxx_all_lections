@@ -11,8 +11,8 @@ void lection1() {
   v3.x = 3;
   cout << "v3.x == " << v3.x << endl;
 
-  set_y(v3, 4);
-  cout << "get_y(v3) == " << get_y(v3) << endl; // (*)
+  Vector3_set_y(&v3, 4);
+  cout << "get_y(v3) == " << Vector3_get_y(&v3) << endl; // (*)
 
   // Инкапсуляция: внутренняя структура недоступна, ...
   // v2.x_ = 3; // поле скрыто
@@ -21,7 +21,7 @@ void lection1() {
   // ... доступен только интерфейс.
   v2.set_x(3);
   v2.set_y(4);
-  cout << "v2.get_x() == " << v2.get_x() << endl;
+  cout << "v2.get_x() == " << v2.get_x() << endl; // (**)
   cout << "v2.get_y() == " << v2.get_y() << endl; // (**)
 
   cout << "v2.get_rad() == "   << v2.get_rad()   << endl;
@@ -29,7 +29,7 @@ void lection1() {
   // Внутренняя структура неизвестна - абстракция.
 
   Vector3 v3_y = {0,1,0}; // инициализация полей структуры
-  cout << "get_y(v3_y) == " << get_y(v3_y) << endl; // см. (*)
+  cout << "get_y(v3_y) == " << Vector3_get_y(&v3_y) << endl; // см. (*)
   // в наши функции передается фактический аргумент типа структуры
 
   // Vector2 v2_y = {0,1}; // поля скрыты!
