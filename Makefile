@@ -1,8 +1,13 @@
-# uniMakefile v0.2.4 by Pavel 'M4E5TR0' Matcula
+# ultiMakefile v0.2.6 by Pavel 'M4E5TR0' Matcula
 # 0.2.1: fixed module dependencies for fortran objects
-# 0.2.2: fixed 'check-syntax' target for emacs flymake
+# 0.2.2: fixed `check-syntax' target for emacs flymake
 # 0.2.3: fixed bug with makedepf90 used w/o arguments
-# 0.2.4: fixed unnecessary builds on 'clean' target
+# 0.2.4: fixed unnecessary builds on `clean' target
+# 0.2.5: fixed object file path in dependency files
+# 0.2.6: added `install' and `uninstall' targets
+# TODO: reduce dependency make and include remake times
+# TODO: switch syntax checker for headers to CC or CXX
+# TODO: add Objective-C and Pascal support
 
 # To be customized
 NAME := lections
@@ -27,10 +32,13 @@ srcdir := ./
 
 # To be customized for internal structure
 INCLUDE_DIR := ./
-BUILD_DIR ?= ./obj
+BUILD_DIR ?= ./build
 BIN_DIR := ./bin
 LIB_DIR := ./lib
 
+CPPFLAGS += 
+
+CFLAGS += 
 CXXFLAGS += -std=c++11
 
 ifeq ($(TOOLCHAIN),intel)
@@ -114,7 +122,7 @@ endif
 ifeq ($(TOOLCHAIN),clang)
 CC := clang
 CXX := clang++
-CXXFLAGS += -std=libc++
+CXXFLAGS += -stdlib=libc++
 FC := gfortran
 LDLIBS += -lc++abi -lgfortran
 endif
@@ -126,9 +134,9 @@ FFLAGS += -O2
 endif
 
 ifeq ($(BUILD_TYPE),debug)
-CFLAGS += -O0 -g
-CXXFLAGS += -O0 -g
-FFLAGS += -O0 -g
+CFLAGS += -Wall -O0 -g
+CXXFLAGS += -Wall -O0 -g
+FFLAGS += -Wall -O0 -g
 endif
 
 ifeq ($(TARGET_TYPE),shared)
@@ -172,17 +180,17 @@ endif
 $(BUILD_DIR)/%.o: $(srcdir)/%.c | $(BUILD_DIR)
 	$(COMPILE.c) -o $@ $<
 $(BUILD_DIR)/%.d: $(srcdir)/%.c | $(BUILD_DIR)
-	-@$(COMPILE.c) -E > /dev/null -MMD -MF $@ $< -MP
+	@$(COMPILE.c) -MMD -MF $@ $< -MT $(BUILD_DIR)/$*.o -MP
 
 $(BUILD_DIR)/%.o: $(srcdir)/%.cc | $(BUILD_DIR)
 	$(COMPILE.cc) -o $@ $<
 $(BUILD_DIR)/%.d: $(srcdir)/%.cc | $(BUILD_DIR)
-	-@$(COMPILE.cc) -E > /dev/null -MMD -MF $@ $< -MP
+	@$(COMPILE.cc) -MMD -MF $@ $< -MT $(BUILD_DIR)/$*.o -MP
 
 $(BUILD_DIR)/%.o: $(srcdir)/%.cpp | $(BUILD_DIR)
 	$(COMPILE.cpp) -o $@ $<
 $(BUILD_DIR)/%.d: $(srcdir)/%.cpp | $(BUILD_DIR)
-	-@$(COMPILE.cpp) -E > /dev/null -MMD -MF $@ $< -MP
+	@$(COMPILE.cpp) -MMD -MF $@ $< -MT $(BUILD_DIR)/$*.o -MP
 
 $(BUILD_DIR)/%.o $(BUILD_DIR)/%.mod: $(srcdir)/%.f | $(BUILD_DIR)
 	$(COMPILE.F) -o $(BUILD_DIR)/$*.o $<
@@ -191,7 +199,7 @@ $(BUILD_DIR)/%.o $(BUILD_DIR)/%.mod: $(srcdir)/%.F | $(BUILD_DIR)
 	$(COMPILE.f) -o $(BUILD_DIR)/$*.o $<
 
 $(BUILD_DIR)/dependencies: $(MOD_SRCS) | $(BUILD_DIR)
-	makedepf90 > $@ $^ -b $(BUILD_DIR) -m "%m.mod"
+	@makedepf90 > $@ $^ -b $(BUILD_DIR) -m "%m.mod"
 
 $(BUILD_DIR) $(BIN_DIR) $(LIB_DIR):
 	mkdir -p $@
@@ -232,19 +240,30 @@ cscope.out: $(OBJ_SRCS)
 # GNU Makefile Conventions (7.2.6)
 .PHONY: install
 install:
+ifeq ($(TARGET_TYPE),binary)
+	$(INSTALL_PROGRAM) $(TARGET) $(DESTDIR)$(bindir)/$(TARGET_NAME)
+else
+	$(INSTALL_DATA) $(TARGET) $(DESTDIR)$(libdir)/$(TARGET_NAME)
+endif
 
 # GNU Makefile Conventions (7.2.6)
 .PHONY: uninstall
 uninstall:
+ifeq ($(TARGET_TYPE),binary)
+	-$(RM) $(DESTDIR)$(bindir)/$(TARGET_NAME)
+else
+	-$(RM) $(DESTDIR)$(libdir)/$(TARGET_NAME)
+endif
 
 # GNU Makefile Conventions (7.2.6)
 .PHONY: clean
 clean:
-	-rm -f $(DEPS)
-	-rm -f $(MODS)
-	-rm -f $(OBJS)
-	-rm -f $(TARGET)
+	-$(RM) $(DEPS)
+	-$(RM) $(MODS)
+	-$(RM) $(OBJS)
+	-$(RM) $(TARGET)
 
+# GNU Emacs Flymake requirement
 .PHONY: check-syntax
 check-syntax: COMPILE.h := $(COMPILE.cc)
 check-syntax:
