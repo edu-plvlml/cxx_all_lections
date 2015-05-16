@@ -14,14 +14,14 @@ struct Vector3 {
 };
 
 // Определения встраиваемых функций
-inline int get_x(const Vector3& vector_from) { return vector_from.x; }
-inline int get_y(const Vector3& vector_from) { return vector_from.y; }
-inline int get_z(const Vector3& vector_from) { return vector_from.z; }
+inline int Vector3_get_x(const Vector3* vector_from) { return vector_from->x; }
+inline int Vector3_get_y(const Vector3* vector_from) { return vector_from->y; }
+inline int Vector3_get_z(const Vector3* vector_from) { return vector_from->z; }
 
 // Объявления функций
-void set_x(Vector3& vector_to, int x);
-void set_y(Vector3& vector_to, int y);
-void set_z(Vector3& vector_to, int z);
+void Vector3_set_x(Vector3* vector_to, int x);
+void Vector3_set_y(Vector3* vector_to, int y);
+void Vector3_set_z(Vector3* vector_to, int z);
 
 // Идиома "защита включения"
 #endif // STRUCT_VECTOR3_H_

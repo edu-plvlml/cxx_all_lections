@@ -12,6 +12,6 @@ Vector3 *pv3_0 = nullptr; // создавать указатели можно
 Vector3 v3, *pv3 = new Vector3; // теперь можно
 
 // Определения функций
-void set_x(Vector3& vector_to, int x) { vector_to.x = x; }
-void set_y(Vector3& vector_to, int y) { vector_to.y = y; }
-void set_z(Vector3& vector_to, int z) { vector_to.z = z; }
+void Vector3_set_x(Vector3* vector_to, int x) { vector_to->x = x; }
+void Vector3_set_y(Vector3* vector_to, int y) { vector_to->y = y; }
+void Vector3_set_z(Vector3* vector_to, int z) { vector_to->z = z; }
